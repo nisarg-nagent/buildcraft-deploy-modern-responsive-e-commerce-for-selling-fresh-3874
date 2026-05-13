@@ -1,0 +1,67 @@
+{
+  "components": [
+    {
+      "name": "PostgreSQL Database",
+      "type": "database",
+      "technology": "PostgreSQL",
+      "purpose": "Primary data store",
+      "configuration": {
+        "replication": "enabled",
+        "backups": "daily"
+      }
+    },
+    {
+      "name": "Redis Cache",
+      "type": "cache",
+      "technology": "Redis",
+      "purpose": "Caching of frequently accessed data",
+      "configuration": {
+        "maxMemory": "512MB",
+        "evictionPolicy": "LRU"
+      }
+    },
+    {
+      "name": "RabbitMQ Queue",
+      "type": "queue",
+      "technology": "RabbitMQ",
+      "purpose": "Task delegation and processing",
+      "configuration": {
+        "durable": true,
+        "autoDelete": false
+      }
+    }
+  ],
+  "communication": [
+    {
+      "from": "Frontend",
+      "to": "API Server",
+      "protocol": "HTTP",
+      "purpose": "REST API interactions"
+    },
+    {
+      "from": "API Server",
+      "to": "PostgreSQL Database",
+      "protocol": "TCP",
+      "purpose": "CRUD operations"
+    },
+    {
+      "from": "API Server",
+      "to": "Redis Cache",
+      "protocol": "TCP",
+      "purpose": "Data caching"
+    },
+    {
+      "from": "API Server",
+      "to": "RabbitMQ Queue",
+      "protocol": "AMQP",
+      "purpose": "Asynchronous task processing"
+    }
+  ],
+  "scaling": {
+    "strategy": "horizontal",
+    "triggers": [
+      "CPU > 80%",
+      "Memory > 70%"
+    ]
+  }
+}

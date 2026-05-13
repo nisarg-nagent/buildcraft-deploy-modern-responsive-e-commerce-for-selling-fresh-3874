@@ -1,0 +1,188 @@
+{
+  "engine": "postgresql",
+  "tables": [
+    {
+      "name": "Products",
+      "description": "Table containing all products",
+      "columns": [
+        {
+          "name": "productId",
+          "type": "UUID",
+          "nullable": false,
+          "primaryKey": true,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "nullable": false
+        },
+        {
+          "name": "categoryId",
+          "type": "UUID",
+          "nullable": false,
+          "references": {
+            "table": "Categories",
+            "column": "categoryId"
+          }
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "price",
+          "type": "DECIMAL(10,2)",
+          "nullable": false
+        },
+        {
+          "name": "availability",
+          "type": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "name": "imageUrl",
+          "type": "TEXT",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_product_name",
+          "columns": [
+            "name"
+          ],
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "description": "Table containing all product categories",
+      "columns": [
+        {
+          "name": "categoryId",
+          "type": "UUID",
+          "nullable": false,
+          "primaryKey": true,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_category_name",
+          "columns": [
+            "name"
+          ],
+          "unique": true
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "description": "Table containing user information",
+      "columns": [
+        {
+          "name": "userId",
+          "type": "UUID",
+          "nullable": false,
+          "primaryKey": true,
+          "unique": true
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR(255)",
+          "nullable": false
+        },
+        {
+          "name": "password",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR(255)",
+          "nullable": false
+        },
+        {
+          "name": "role",
+          "type": "VARCHAR(50)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_user_email",
+          "columns": [
+            "email"
+          ],
+          "unique": true
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "description": "Table containing order details",
+      "columns": [
+        {
+          "name": "orderId",
+          "type": "UUID",
+          "nullable": false,
+          "primaryKey": true,
+          "unique": true
+        },
+        {
+          "name": "userId",
+          "type": "UUID",
+          "nullable": false,
+          "references": {
+            "table": "Users",
+            "column": "userId"
+          }
+        },
+        {
+          "name": "orderDate",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "totalAmount",
+          "type": "DECIMAL(10,2)",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(50)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_order_user",
+          "columns": [
+            "userId"
+          ],
+          "unique": false
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "order_status",
+      "values": [
+        "pending",
+        "completed",
+        "shipped",
+        "cancelled"
+      ]
+    }
+  ]
+}

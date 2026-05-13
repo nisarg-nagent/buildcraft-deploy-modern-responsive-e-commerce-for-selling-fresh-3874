@@ -1,0 +1,209 @@
+[
+  {
+    "endpoint": "/api/products",
+    "method": "GET",
+    "description": "Fetch a list of products with optional filters.",
+    "authentication": false,
+    "request": {
+      "headers": {},
+      "params": {},
+      "query": {
+        "category": "string",
+        "search": "string",
+        "limit": "number"
+      },
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "products": [
+            {
+              "productId": "string",
+              "name": "string",
+              "price": "number",
+              "availability": "boolean",
+              "imageUrl": "string"
+            }
+          ]
+        }
+      },
+      "errors": [
+        {
+          "status": 400,
+          "code": "INVALID_QUERY",
+          "message": "Invalid query parameters"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/products/:productId",
+    "method": "GET",
+    "description": "Fetch detailed information for a specific product.",
+    "authentication": false,
+    "request": {
+      "headers": {},
+      "params": {
+        "productId": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "productId": "string",
+          "name": "string",
+          "description": "string",
+          "price": "number",
+          "availability": "boolean",
+          "imageUrl": "string"
+        }
+      },
+      "errors": [
+        {
+          "status": 404,
+          "code": "PRODUCT_NOT_FOUND",
+          "message": "Product not found"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/cart",
+    "method": "POST",
+    "description": "Add a product to the shopping cart.",
+    "authentication": true,
+    "request": {
+      "headers": {
+        "Authorization": "Bearer token"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "userId": "string",
+        "productId": "string",
+        "quantity": "number"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "message": "Product added to cart"
+        }
+      },
+      "errors": [
+        {
+          "status": 400,
+          "code": "INVALID_PRODUCT",
+          "message": "Invalid product ID"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/orders",
+    "method": "POST",
+    "description": "Create a new order for the user.",
+    "authentication": true,
+    "request": {
+      "headers": {
+        "Authorization": "Bearer token"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "userId": "string",
+        "cartId": "string"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 201,
+        "body": {
+          "orderId": "string",
+          "status": "string",
+          "totalAmount": "number"
+        }
+      },
+      "errors": [
+        {
+          "status": 400,
+          "code": "ORDER_CREATION_FAILED",
+          "message": "Failed to create order due to invalid data"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/admin/products",
+    "method": "POST",
+    "description": "Create a new product in the store.",
+    "authentication": true,
+    "request": {
+      "headers": {
+        "Authorization": "Bearer token"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "name": "string",
+        "categoryId": "string",
+        "description": "string",
+        "price": "number",
+        "availability": "boolean",
+        "imageUrl": "string"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 201,
+        "body": {
+          "productId": "string",
+          "name": "string"
+        }
+      },
+      "errors": [
+        {
+          "status": 403,
+          "code": "UNAUTHORIZED_ACCESS",
+          "message": "Only admins can create products"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/admin/dashboard",
+    "method": "GET",
+    "description": "Fetch analytics and reports for sales and user activities.",
+    "authentication": true,
+    "request": {
+      "headers": {
+        "Authorization": "Bearer token"
+      },
+      "params": {},
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "salesData": "array",
+          "userActivities": "array"
+        }
+      },
+      "errors": [
+        {
+          "status": 403,
+          "code": "UNAUTHORIZED_ACCESS",
+          "message": "Only admins can access dashboard"
+        }
+      ]
+    }
+  }
+]

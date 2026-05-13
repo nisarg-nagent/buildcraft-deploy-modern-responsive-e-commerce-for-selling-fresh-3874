@@ -1,0 +1,44 @@
+```dbml
+Table Categories {
+  categoryId    UUID   [pk, default: "genRandomUUID()"]
+  name          varchar(255)
+  Indexes {
+    name [unique]
+  }
+}
+
+Table Products {
+  productId    UUID   [pk, default: "genRandomUUID()"]
+  name         varchar(255)
+  categoryId   UUID   [ref: > Categories.categoryId]
+  description  text
+  price        decimal(10,2)
+  availability boolean
+  imageUrl     text
+  Indexes {
+    name
+  }
+}
+
+Table Users {
+  userId   UUID   [pk, default: "genRandomUUID()"]
+  username varchar(255)
+  password text
+  email    varchar(255)
+  role     varchar(50)
+  Indexes {
+    email [unique]
+  }
+}
+
+Table Orders {
+  orderId     UUID   [pk, default: "genRandomUUID()"]
+  userId      UUID   [ref: > Users.userId]
+  orderDate   timestamp
+  totalAmount decimal(10,2)
+  status      varchar(50)
+  Indexes {
+    userId
+  }
+}
+```

@@ -1,0 +1,73 @@
+{
+  "services": [
+    {
+      "name": "ProductService",
+      "description": "Handles operations related to products",
+      "responsibilities": [
+        "Fetch products",
+        "Add new products",
+        "Update product information"
+      ],
+      "dependencies": [
+        "DatabaseAccessService"
+      ],
+      "methods": [
+        {
+          "name": "getAllProducts",
+          "description": "Retrieve all products with optional filters",
+          "params": [
+            {
+              "name": "filters",
+              "type": "object"
+            }
+          ],
+          "returns": "Promise<Product[]>",
+          "throws": [
+            "DatabaseError"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OrderService",
+      "description": "Handles order-related operations",
+      "responsibilities": [
+        "Create and manage user orders"
+      ],
+      "dependencies": [
+        "UserService",
+        "ProductService"
+      ],
+      "methods": [
+        {
+          "name": "createOrder",
+          "description": "Create a new order",
+          "params": [
+            {
+              "name": "orderData",
+              "type": "object"
+            }
+          ],
+          "returns": "Promise<Order>",
+          "throws": [
+            "OrderCreationError"
+          ]
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "controllers": [
+      "Handle HTTP requests",
+      "Translate HTTP data to service calls"
+    ],
+    "services": [
+      "Business logic",
+      "Manage workflows"
+    ],
+    "repositories": [
+      "Direct data access",
+      "Database communication"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "pattern": "microservices",
+  "diagram": "Frontend <--> API Gateway <--> { Product Service, Order Service, Auth Service } <--> Database/Cache/Queue",
+  "dataFlow": [
+    "Step 1: User sends request via frontend",
+    "Step 2: API Gateway forwards to relevant service",
+    "Step 3: Service processes request using database/cache/queue",
+    "Step 4: Service responds back to frontend through API Gateway"
+  ]
+}

@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Product",
+    "description": "Represents a product available in the store, such as a vegetable or fruit.",
+    "attributes": [
+      {
+        "name": "productId",
+        "type": "string",
+        "required": true,
+        "description": "Unique identifier for the product"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Name of the product"
+      },
+      {
+        "name": "category",
+        "type": "reference",
+        "required": true,
+        "description": "Category the product belongs to"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Detailed description of the product"
+      },
+      {
+        "name": "price",
+        "type": "number",
+        "required": true,
+        "description": "Price of the product"
+      },
+      {
+        "name": "availability",
+        "type": "boolean",
+        "required": true,
+        "description": "Availability status of the product"
+      },
+      {
+        "name": "imageUrl",
+        "type": "string",
+        "required": false,
+        "description": "Image URL of the product"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Category",
+        "type": "manyToOne",
+        "description": "A product belongs to a category"
+      }
+    ]
+  },
+  {
+    "name": "Category",
+    "description": "Represents a category of products.",
+    "attributes": [
+      {
+        "name": "categoryId",
+        "type": "string",
+        "required": true,
+        "description": "Unique identifier for the category"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Name of the category"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Product",
+        "type": "oneToMany",
+        "description": "A category can have many products"
+      }
+    ]
+  },
+  {
+    "name": "User",
+    "description": "Represents a registered user of the system, can be either a customer or an admin.",
+    "attributes": [
+      {
+        "name": "userId",
+        "type": "string",
+        "required": true,
+        "description": "Unique identifier for the user"
+      },
+      {
+        "name": "username",
+        "type": "string",
+        "required": true,
+        "description": "Username of the user"
+      },
+      {
+        "name": "password",
+        "type": "string",
+        "required": true,
+        "description": "Password for the user"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "required": true,
+        "description": "Email address of the user"
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "required": true,
+        "description": "Role of the user (customer or admin)"
+      }
+    ],
+    "relationships": []
+  },
+  {
+    "name": "Order",
+    "description": "Represents a purchase order placed by a user.",
+    "attributes": [
+      {
+        "name": "orderId",
+        "type": "string",
+        "required": true,
+        "description": "Unique identifier for the order"
+      },
+      {
+        "name": "userId",
+        "type": "reference",
+        "required": true,
+        "description": "User who placed the order"
+      },
+      {
+        "name": "orderDate",
+        "type": "date",
+        "required": true,
+        "description": "Date the order was placed"
+      },
+      {
+        "name": "totalAmount",
+        "type": "number",
+        "required": true,
+        "description": "Total amount of the order"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": true,
+        "description": "Current status of the order"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "User",
+        "type": "manyToOne",
+        "description": "Order belongs to a user"
+      }
+    ]
+  }
+]
